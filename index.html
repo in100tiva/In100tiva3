@@ -7,450 +7,803 @@
 <link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.0/dist/full.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-    tailwind.config = {
-        theme: {
-            screens: {
-                'sm': '320px',
-                'md': '768px',
-                'xl': '1280px',
-            }
-        }
-    }
+  tailwind.config = {
+      theme: {
+          screens: {
+              'sm': '320px',
+              'md': '768px',
+              'xl': '1280px',
+          },
+          extend: {
+              colors: {
+                  'high-contrast': '#333333', // Cor escura para texto com alto contraste
+                  'icon-contrast': '#555555', // Cor escura para ícones com alto contraste
+              }
+          }
+      }
+  }
 </script>
 <style>
-    .bottom-nav {
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        width: calc(100% - 20px);
-        max-width: 400px;
-    }
-    @media (min-width: 768px) {
-        .bottom-nav {
-            bottom: 20px;
-        }
-    }
-    .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
+  .bottom-nav {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: calc(100% - 20px);
+      max-width: 400px;
+  }
+  @media (min-width: 768px) {
+      .bottom-nav {
+          bottom: 20px;
+      }
+  }
+  .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+  }
+  pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-x: auto;
+  }
+  .menu-icon {
+      width: 16px;
+      height: 16px;
+      stroke: #555555; /* Cor escura para ícones com alto contraste */
+  }
+  @media (min-width: 768px) {
+      .menu-icon {
+          width: 24px;
+          height: 24px;
+      }
+  }
+  @media (min-width: 1280px) {
+      .menu-icon {
+          width: 32px;
+          height: 32px;
+      }
+  }
+  .large-text {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      color: var(--high-contrast-color);
+  }
 </style>
 </head>
 <body class="min-h-screen bg-base-200">
 <div id="loading-overlay" class="loading-overlay" style="display: none;">
-    <div class="flex flex-col items-center">
-        <span class="loading loading-infinity loading-lg"></span>
-        <p class="mt-4 text-lg font-semibold">Carregando...</p>
-    </div>
+  <div class="flex flex-col items-center">
+      <span class="loading loading-infinity loading-lg text-icon-contrast"></span>
+      <p class="mt-4 text-lg font-semibold text-high-contrast">Carregando...</p>
+  </div>
 </div>
 
 <div class="navbar bg-base-100 shadow-lg">
-    <div class="flex-1">
-        <a class="btn btn-ghost text-base sm:text-lg md:text-xl">Aprendendo Programação</a>
-    </div>
-    <div class="flex-none gap-2">
-        <div class="form-control">
-            <input type="text" placeholder="Pesquisar" class="input input-bordered w-full max-w-xs sm:w-24 md:w-auto" />
-        </div>
-        <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                <div class="w-8 sm:w-10 rounded-full">
-                    <img
-                        alt="Avatar do usuário"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                </div>
-            </div>
-            <ul tabindex="0"
-                class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40 sm:w-52">
-                <li>
-                    <a class="justify-between">
-                        Perfil
-                        <span class="badge">Novo</span>
-                    </a>
-                </li>
-                <li><a>Configurações</a></li>
-                <li><a>Sair</a></li>
-            </ul>
-        </div>
-    </div>
+  <div class="flex-1">
+      <a class="btn btn-ghost text-base sm:text-lg md:text-xl text-high-contrast">Aprendendo Programação</a>
+  </div>
+  <div class="flex-none gap-2">
+      <div class="form-control">
+          <input type="text" placeholder="Pesquisar" class="input input-bordered w-full max-w-xs sm:w-24 md:w-auto" />
+      </div>
+      <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-8 sm:w-10 rounded-full">
+                  <img
+                      alt="Avatar do usuário"
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              </div>
+          </div>
+          <ul tabindex="0"
+              class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40 sm:w-52">
+              <li>
+                  <a class="justify-between text-high-contrast">
+                      Perfil
+                      <span class="badge">Novo</span>
+                  </a>
+              </li>
+              <li><a class="text-high-contrast">Configurações</a></li>
+              <li><a class="text-high-contrast">Sair</a></li>
+          </ul>
+      </div>
+  </div>
 </div>
 
 <div id="content" class="p-3 sm:p-4 md:p-6 xl:p-8 pb-24">
-    <!-- O conteúdo da página será inserido aqui -->
-    <h1 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-3 sm:mb-4 md:mb-6">Bem-vindo ao Aprendendo Programação</h1>
-    <p class="text-sm sm:text-base md:text-lg xl:text-xl">Selecione um tópico no menu para começar.</p>
+  <!-- O conteúdo da página será inserido aqui -->
+  <h1 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-3 sm:mb-4 md:mb-6 text-high-contrast">Bem-vindo ao Aprendendo Programação</h1>
+  <p class="text-sm sm:text-base md:text-lg xl:text-xl text-high-contrast">Selecione um tópico no menu para começar.</p>
 </div>
 
 <div class="bottom-nav">
-    <ul class="menu menu-horizontal bg-base-100 rounded-box shadow-lg w-full justify-center">
-        <li>
-            <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="Lógica" onclick="loadContentWithDelay('logica')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                </svg>
-            </a>
-        </li>
-        <li>
-            <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="JavaScript" onclick="loadContentWithDelay('javascript')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-            </a>
-        </li>
-        <li>
-            <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="Node.js" onclick="loadContentWithDelay('nodejs')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-                </svg>
-            </a>
-        </li>
-        <li>
-            <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="UI" onclick="loadContentWithDelay('ui')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                </svg>
-            </a>
-        </li>
-    </ul>
+  <ul class="menu menu-horizontal bg-base-100 rounded-box shadow-lg w-full justify-center">
+      <li>
+          <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="Lógica" onclick="loadContentWithDelay('logica')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+          </a>
+      </li>
+      <li>
+          <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="JavaScript" onclick="loadContentWithDelay('javascript')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+          </a>
+      </li>
+      <li>
+          <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="Node.js" onclick="loadContentWithDelay('nodejs')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+              </svg>
+          </a>
+      </li>
+      <li>
+          <a class="tooltip tooltip-top p-2 sm:p-3 md:p-4" data-tip="UI" onclick="loadContentWithDelay('ui')">
+              <svg xmlns="http://www.w3.org/2000/svg" class="menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
+          </a>
+      </li>
+  </ul>
 </div>
 
 <script>
-    function showLoading() {
-        document.getElementById('loading-overlay').style.display = 'flex';
-    }
+  function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+  }
 
-    function hideLoading() {
-        document.getElementById('loading-overlay').style.display = 'none';
-    }
+  function hideLoading() {
+      document.getElementById('loading-overlay').style.display = 'none';
+  }
 
-    function loadContentWithDelay(page) {
-        showLoading();
-        setTimeout(() => {
-            loadContent(page);
-            hideLoading();
-        }, 1500); // 1.5 seconds delay
-    }
+  function loadContentWithDelay(page) {
+      showLoading();
+      setTimeout(() => {
+          loadContent(page);
+          hideLoading();
+      }, 1500); // 1.5 seconds delay
+  }
 
-    function loadContent(page) {
-        const content = document.getElementById('content');
-        const pageTitle = {
-            'logica': 'Lógica de Programação',
-            'javascript': 'JavaScript',
-            'nodejs': 'Node.js',
-            'ui': 'Bibliotecas UI'
-        };
+  function loadContent(page) {
+      const content = document.getElementById('content');
+      const pageTitle = {
+          'logica': 'Lógica de Programação',
+          'javascript': 'JavaScript',
+          'nodejs': 'Node.js',
+          'ui': 'Bibliotecas UI'
+      };
 
-        if (page === 'ui') {
-            const frameworks = [
-                {
-                    name: 'Bootstrap',
-                    characteristics: [
-                        'Sistema de grid responsivo',
-                        'Ampla variedade de componentes pré-estilizados',
-                        'Personalizável via Sass',
-                        'Extensa documentação e comunidade ativa',
-                        'Compatível com JavaScript vanilla'
-                    ],
-                    description: 'Bootstrap é um dos frameworks CSS mais populares. Pode ser usado sem seu componente JavaScript, focando apenas no CSS. Para começar, adicione os seguintes links ao seu HTML: <br><code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code><br><br>Documentação: <a href="https://getbootstrap.com/docs/" target="_blank" class="link link-primary">https://getbootstrap.com/docs/</a>'
-                },
-                {
-                    name: 'Bulma',
-                    characteristics: [
-                        'Baseado em Flexbox para layouts modernos',
-                        'Modular e leve',
-                        'Não depende de JavaScript',
-                        'Fácil de personalizar',
-                        'Design moderno e limpo'
-                    ],
-                    description: 'Bulma é um framework CSS moderno e flexível, ideal para projetos que precisam de uma base sólida sem a complexidade de JavaScript embutido. Para começar, adicione o seguinte link ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"&gt;</code><br><br>Documentação: <a href="https://bulma.io/documentation/" target="_blank" class="link link-primary">https://bulma.io/documentation/</a>'
-                },
-                {
-                    name: 'Foundation',
-                    characteristics: [
-                        'Sistema de grid responsivo e personalizável',
-                        'Componentes acessíveis',
-                        'Personalizável via Sass',
-                        'Suporte para email design',
-                        'Pode ser usado com ou sem JavaScript'
-                    ],
-                    description: 'Foundation é um framework robusto e flexível, adequado para projetos de todos os tamanhos. Para começar, adicione os seguintes links ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css"&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js"&gt;&lt;/script&gt;</code><br><br>Documentação: <a href="https://get.foundation/sites/docs/" target="_blank" class="link link-primary">https://get.foundation/sites/docs/</a>'
-                },
-                {
-                    name: 'UIkit',
-                    characteristics: [
-                        'Leve e modular',
-                        'Ampla gama de componentes',
-                        'Temas facilmente personalizáveis',
-                        'Animações suaves',
-                        'Pode ser usado com JavaScript vanilla ou com seu próprio sistema de componentes'
-                    ],
-                    description: 'UIkit é um framework versátil que oferece uma grande variedade de componentes e estilos. Para começar, adicione os seguintes links ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"&gt;&lt;/script&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"&gt;&lt;/script&gt;</code><br><br>Documentação: <a href="https://getuikit.com/docs/" target="_blank" class="link link-primary">https://getuikit.com/docs/</a>'
-                },
-                {
-                    name: 'Materialize',
-                    characteristics: [
-                        'Baseado no Material Design do Google',
-                        'Animações e transições suaves',
-                        'Responsivo e mobile-first',
-                        'Componentes interativos prontos para uso',
-                        'Pode ser usado apenas com CSS ou com JavaScript adicional'
-                    ],
-                    description: 'Materialize é perfeito para projetos que desejam seguir as diretrizes do Material Design. Para começar, adicione os seguintes links ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"&gt;<br>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"&gt;&lt;/script&gt;</code><br><br>Documentação: <a href="https://materializecss.com/" target="_blank" class="link link-primary">https://materializecss.com/</a>'
-                },
-                {
-                    name: 'Semantic UI',
-                    characteristics: [
-                        'Sintaxe amigável e intuitiva',
-                        'Temas altamente personalizáveis',
-                        'Responsivo e mobile-friendly',
-                        'Integração fácil com frameworks JavaScript',
-                        'Pode ser usado com JavaScript vanilla'
-                    ],
-                    description: 'Semantic UI se destaca pela sua abordagem intuitiva e semântica na criação de interfaces. Para começar, adicione os seguintes links ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"&gt;&lt;/script&gt;</code><br><br>Documentação: <a href="https://semantic-ui.com/introduction/getting-started.html" target="_blank" class="link link-primary">https://semantic-ui.com/introduction/getting-started.html</a>'
-                },
-                {
-                    name: 'Pure.css',
-                    characteristics: [
-                        'Extremamente leve e minimalista',
-                        'Módulos CSS independentes',
-                        'Responsivo e mobile-friendly',
-                        'Fácil de integrar em projetos existentes',
-                        'Não depende de JavaScript'
-                    ],
-                    description: 'Pure.css é ideal para projetos que necessitam de uma solução leve e simples. Para começar, adicione o seguinte link ao seu HTML: <br><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"&gt;</code><br><br>Documentação: <a href="https://purecss.io/" target="_blank" class="link link-primary">https://purecss.io/</a>'
-                },
-                {
-                    name: 'Tailwind CSS',
-                    characteristics: [
-                        'Abordagem utility-first',
-                        'Altamente customizável',
-                        'Gera apenas o CSS que você usa',
-                        'Responsivo e mobile-first',
-                        'Não depende de JavaScript'
-                    ],
-                    description: 'Tailwind CSS revoluciona o desenvolvimento front-end com sua abordagem utility-first. Para começar, você pode usar o CDN para desenvolvimento rápido (não recomendado para produção): <br><code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code><br>Para projetos maiores, é recomendado instalar via npm e configurar o build process.<br><br>Documentação: <a href="https://tailwindcss.com/docs" target="_blank" class="link link-primary">https://tailwindcss.com/docs</a>'
-                },
-                {
-                    name: 'DaisyUI',
-                    characteristics: [
-                        'Componentes pré-estilizados para Tailwind CSS',
-                        'Temas personalizáveis',
-                        'Responsivo e mobile-first',
-                        'Fácil integração com projetos Tailwind existentes',
-                        'Não requer JavaScript adicional'
-                    ],
-                    description: 'DaisyUI é uma biblioteca de componentes para Tailwind CSS, oferecendo uma variedade de componentes pré-estilizados e personalizáveis. Para começar, instale Tailwind CSS e DaisyUI via npm:<br><code>npm install -D tailwindcss daisyui@latest</code><br>Em seguida, adicione DaisyUI ao seu arquivo tailwind.config.js:<br><code>module.exports = {<br>  plugins: [require("daisyui")],<br>}</code><br><br>Documentação: <a href="https://daisyui.com/docs/install/" target="_blank" class="link link-primary">https://daisyui.com/docs/install/</a>'
-                }
-            ];
+      if (page === 'ui') {
+          const frameworks = [
+              {
+                  name: 'Bootstrap',
+                  characteristics: [
+                      'Sistema de grid responsivo',
+                      'Ampla variedade de componentes pré-estilizados',
+                      'Personalizável via Sass',
+                      'Extensa documentação e comunidade ativa',
+                      'Compatível com JavaScript vanilla'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Bootstrap é um dos frameworks CSS mais populares, oferecendo uma solução robusta para desenvolvimento web responsivo. Suas principais vantagens incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Rápido desenvolvimento de interfaces responsivas</li>
+                          <li>Consistência visual em diferentes navegadores</li>
+                          <li>Flexibilidade para personalização</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar a usar o Bootstrap, adicione os seguintes links ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+                      <p class="large-text">Para mais informações, consulte a <a href="https://getbootstrap.com/docs/" target="_blank" class="link link-primary">documentação oficial do Bootstrap</a>.</p>
+                  `
+              },
+              {
+                  name: 'Bulma',
+                  characteristics: [
+                      'Baseado em Flexbox para layouts modernos',
+                      'Modular e leve',
+                      'Não depende de JavaScript',
+                      'Fácil de personalizar',
+                      'Design moderno e limpo'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Bulma é um framework CSS moderno e flexível, ideal para projetos que precisam de uma base sólida sem a complexidade de JavaScript embutido. Seus pontos fortes incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Abordagem "CSS-only" para maior flexibilidade</li>
+                          <li>Sistema de grid baseado em Flexbox</li>
+                          <li>Componentes modulares para fácil customização</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar com Bulma, adicione o seguinte link ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"&gt;</code></pre>
+                      <p class="large-text">Explore mais na <a href="https://bulma.io/documentation/" target="_blank" class="link link-primary">documentação do Bulma</a>.</p>
+                  `
+              },
+              {
+                  name: 'Foundation',
+                  characteristics: [
+                      'Sistema de grid responsivo e personalizável',
+                      'Componentes acessíveis',
+                      'Personalizável via Sass',
+                      'Suporte para email design',
+                      'Pode ser usado com ou sem JavaScript'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Foundation é um framework robusto e flexível, adequado para projetos de todos os tamanhos. Suas características notáveis incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Foco em acessibilidade e design responsivo</li>
+                          <li>Flexibilidade para projetos web e email marketing</li>
+                          <li>Extensa customização via Sass</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para iniciar com Foundation, adicione os seguintes links ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js"&gt;&lt;/script&gt;</code></pre>
+                      <p class="large-text">Consulte a <a href="https://get.foundation/sites/docs/" target="_blank" class="link link-primary">documentação do Foundation</a> para mais detalhes.</p>
+                  `
+              },
+              {
+                  name: 'UIkit',
+                  characteristics: [
+                      'Leve e modular',
+                      'Ampla gama de componentes',
+                      'Temas facilmente personalizáveis',
+                      'Animações suaves',
+                      'Pode ser usado com JavaScript vanilla ou com seu próprio sistema de componentes'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">UIkit é um framework versátil que oferece uma grande variedade de componentes e estilos. Seus destaques incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Design moderno e minimalista</li>
+                          <li>Sistema de grid flexível</li>
+                          <li>Animações e transições suaves</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar com UIkit, adicione os seguintes links ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/css/uikit.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/uikit@3.16.19/dist/js/uikit-icons.min.js"&gt;&lt;/script&gt;</code></pre>
+                      <p class="large-text">Para mais informações, visite a <a href="https://getuikit.com/docs/" target="_blank" class="link link-primary">documentação do UIkit</a>.</p>
+                  `
+              },
+              {
+                  name: 'Materialize',
+                  characteristics: [
+                      'Baseado no Material Design do Google',
+                      'Animações e transições suaves',
+                      'Responsivo e mobile-first',
+                      'Componentes interativos prontos para uso',
+                      'Pode ser usado apenas com CSS ou com JavaScript adicional'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Materialize é perfeito para projetos que desejam seguir as diretrizes do Material Design. Suas principais características são:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Implementação fiel do Material Design</li>
+                          <li>Componentes interativos ricos</li>
+                          <li>Ótimo para aplicações mobile-first</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para iniciar com Materialize, adicione os seguintes links ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"&gt;&lt;/script&gt;</code></pre>
+                      <p class="large-text">Explore mais na <a href="https://materializecss.com/" target="_blank" class="link link-primary">documentação do Materialize</a>.</p>
+                  `
+              },
+              {
+                  name: 'Semantic UI',
+                  characteristics: [
+                      'Sintaxe amigável e intuitiva',
+                      'Temas altamente personalizáveis',
+                      'Responsivo e mobile-friendly',
+                      'Integração fácil com frameworks JavaScript',
+                      'Pode ser usado com JavaScript vanilla'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Semantic UI se destaca pela sua abordagem intuitiva e semântica na criação de interfaces. Seus pontos fortes incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Nomenclatura de classes intuitiva</li>
+                          <li>Temas altamente customizáveis</li>
+                          <li>Integração fácil com várias frameworks JavaScript</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar com Semantic UI, adicione os seguintes links ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"&gt;&lt;/script&gt;</code></pre>
+                      <p class="large-text">Consulte a <a href="https://semantic-ui.com/introduction/getting-started.html" target="_blank" class="link link-primary">documentação do Semantic UI</a> para mais detalhes.</p>
+                  `
+              },
+              {
+                  name: 'Pure.css',
+                  characteristics: [
+                      'Extremamente leve e minimalista',
+                      'Módulos CSS independentes',
+                      'Responsivo e mobile-friendly',
+                      'Fácil de integrar em projetos existentes',
+                      'Não depende de JavaScript'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Pure.css é ideal para projetos que necessitam de uma solução leve e simples. Suas principais vantagens são:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Tamanho extremamente reduzido (3.8KB minificado e gzipped)</li>
+                          <li>Modularidade para usar apenas o necessário</li>
+                          <li>Fácil integração com outros frameworks ou bibliotecas</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar com Pure.css, adicione o seguinte link ao seu HTML:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"&gt;</code></pre>
+                      <p class="large-text">Saiba mais na <a href="https://purecss.io/" target="_blank" class="link link-primary">documentação do Pure.css</a>.</p>
+                  `
+              },
+              {
+                  name: 'Tailwind CSS',
+                  characteristics: [
+                      'Abordagem utility-first',
+                      'Altamente customizável',
+                      'Gera apenas o CSS que você usa',
+                      'Responsivo e mobile-first',
+                      'Não depende de JavaScript'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">Tailwind CSS revoluciona o desenvolvimento front-end com sua abordagem utility-first. Seus principais benefícios incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Flexibilidade extrema na criação de designs</li>
+                          <li>Redução significativa no tamanho final do CSS</li>
+                          <li>Facilidade de manutenção e escalabilidade</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para desenvolvimento rápido (não recomendado para produção), você pode usar o CDN:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code></pre>
+                      <p class="mb-4 large-text">Para projetos maiores, é recomendado instalar via npm e configurar o build process.</p>
+                      <p class="large-text">Explore mais na <a href="https://tailwindcss.com/docs" target="_blank" class="link link-primary">documentação do Tailwind CSS</a>.</p>
+                  `
+              },
+              {
+                  name: 'DaisyUI',
+                  characteristics: [
+                      'Componentes pré-estilizados para Tailwind CSS',
+                      'Temas personalizáveis',
+                      'Responsivo e mobile-first',
+                      'Fácil integração com projetos Tailwind existentes',
+                      'Não requer JavaScript adicional'
+                  ],
+                  description: `
+                      <p class="mb-4 large-text">DaisyUI é uma biblioteca de componentes para Tailwind CSS, oferecendo uma variedade de componentes pré-estilizados e personalizáveis. Suas vantagens incluem:</p>
+                      <ul class="list-disc pl-5 mb-4 large-text">
+                          <li>Aceleração do desenvolvimento com Tailwind CSS</li>
+                          <li>Temas pré-configurados e personalizáveis</li>
+                          <li>Manutenção da flexibilidade do Tailwind</li>
+                      </ul>
+                      <p class="mb-4 large-text">Para começar, instale Tailwind CSS e DaisyUI via npm:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>npm install -D tailwindcss daisyui@latest</code></pre>
+                      <p class="mb-4 large-text">Em seguida, adicione DaisyUI ao seu arquivo tailwind.config.js:</p>
+                      <pre class="bg-gray-100 p-2 rounded-md mb-4 text-xs sm:text-sm md:text-base"><code>module.exports = {
+plugins: [require("daisyui")],
+}</code></pre>
+                      <p class="large-text">Para mais detalhes, consulte a <a href="https://daisyui.com/docs/install/" target="_blank" class="link link-primary">documentação do DaisyUI</a>.</p>
+                  `
+              }
+          ];
 
-            let tabsHtml = `
-                <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">${pageTitle[page]}</h2>
-                <div role="tablist" class="tabs tabs-lifted">
-                    ${frameworks.map((framework, index) => 
-                        `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''}" onclick="changeTab(event, 'ui-${framework.name.toLowerCase()}')">${framework.name}</a>`
-                    ).join('')}
-                </div>
-                <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
-                    ${frameworks.map((framework, index) => `
-                        <div id="ui-${framework.name.toLowerCase()}" class="tab-pane ${index === 0 ?  '' : 'hidden'}">
-                            <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2">${framework.name}</h3>
-                            <div class="overflow-x-auto">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Características principais</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${framework.characteristics.map((char, charIndex) => `
-                                            <tr class="${charIndex % 2 === 0 ? '' : 'hover'}">
-                                                <th>${charIndex + 1}</th>
-                                                <td>${char}</td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="mt-4 text-sm sm:text-base md:text-lg space-y-2">
-                                <p>${framework.description}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+          let tabsHtml = `
+              <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-high-contrast">${pageTitle[page]}</h2>
+              <div role="tablist" class="tabs tabs-lifted">
+                  ${frameworks.map((framework, index) => 
+                      `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''} text-high-contrast" onclick="changeTab(event, 'ui-${framework.name.toLowerCase()}')">${framework.name}</a>`
+                  ).join('')}
+              </div>
+              <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
+                  ${frameworks.map((framework, index) => `
+                      <div id="ui-${framework.name.toLowerCase()}" class="tab-pane ${index === 0 ?  '' : 'hidden'}">
+                          <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2 text-high-contrast">${framework.name}</h3>
+                          <div class="overflow-x-auto mb-4">
+                              <table class="table w-full">
+                                  <thead>
+                                      <tr>
+                                          <th class="bg-base-200 text-high-contrast">Características principais</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      ${framework.characteristics.map((char, charIndex) => `
+                                          <tr class="${charIndex % 2 === 0 ? 'bg-base-100' : 'bg-base-200'}">
+                                              <td class="text-high-contrast">${char}</td>
+                                          </tr>
+                                      `).join('')}
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div class="mt-4 text-sm sm:text-base md:text-lg space-y-2">
+                              ${framework.description}
+                          </div>
+                      </div>
+                  `).join('')}
+              </div>
+          `;
 
-            content.innerHTML = tabsHtml;
-        } else if (page === 'logica') {
-            const logicaContent = [
-                {
-                    title: "Introdução à Lógica de Programação",
-                    content: `
-                        <p>A lógica de programação é o fundamento essencial para qualquer programador. Nesta aula, vamos explorar:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>O que é lógica de programação</li>
-                            <li>Por que é importante aprender lógica antes de uma linguagem específica</li>
-                            <li>Conceitos básicos: algoritmos e fluxogramas</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie um fluxograma para fazer um sanduíche.</p>
-                    `
-                },
-                {
-                    title: "Variáveis e Tipos de Dados",
-                    content: `
-                        <p>Nesta aula, vamos aprender sobre os blocos básicos de construção em programação:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>O que são variáveis e por que as usamos</li>
-                            <li>Tipos de dados básicos: números, strings, booleanos</li>
-                            <li>Como declarar e atribuir valores a variáveis</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Declare variáveis para armazenar informações de um livro (título, autor, número de páginas, preço).</p>
-                    `
-                },
-                {
-                    title: "Operadores e Expressões",
-                    content: `
-                        <p>Vamos explorar como manipular e comparar dados:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>Operadores aritméticos (+, -, *, /, %)</li>
-                            <li>Operadores de comparação (==, !=, >, <, >=, <=)</li>
-                            <li>Operadores lógicos (AND, OR, NOT)</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie expressões para verificar se um número é par e maior que 10.</p>
-                    `
-                },
-                {
-                    title: "Estruturas de Controle: Condicionais",
-                    content: `
-                        <p>Aprenda a tomar decisões em seus programas:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>Estrutura if-else</li>
-                            <li>Estrutura switch-case</li>
-                            <li>Operador ternário</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie um algoritmo que determine se um ano é bissexto.</p>
-                    `
-                },
-                {
-                    title: "Estruturas de Controle: Loops",
-                    content: `
-                        <p>Descubra como repetir ações em seus programas:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>Loop for</li>
-                            <li>Loop while</li>
-                            <li>Loop do-while</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie um loop que imprima os primeiros 10 números da sequência de Fibonacci.</p>
-                    `
-                },
-                {
-                    title: "Funções",
-                    content: `
-                        <p>Aprenda a organizar e reutilizar seu código:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>O que são funções e por que as usamos</li>
-                            <li>Como declarar e chamar funções</li>
-                            <li>Parâmetros e retorno de funções</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie uma função que calcule a área de um círculo dado o raio.</p>
-                    `
-                },
-                {
-                    title: "Arrays e Estruturas de Dados",
-                    content: `
-                        <p>Explore como armazenar e manipular coleções de dados:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>O que são arrays</li>
-                            <li>Como criar e acessar elementos em um array</li>
-                            <li>Operações comuns em arrays (adicionar, remover, buscar)</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Crie um array de números e uma função para encontrar o maior número no array.</p>
-                    `
-                },
-                {
-                    title: "Introdução à Complexidade de Algoritmos",
-                    content: `
-                        <p>Compreenda a eficiência dos algoritmos:</p>
-                        <ul class="list-disc list-inside mt-2">
-                            <li>O que é complexidade de tempo e espaço</li>
-                            <li>Notação Big O</li>
-                            <li>Análise de algoritmos simples</li>
-                        </ul>
-                        <p class="mt-4">Exercício: Analise a complexidade de tempo de um algoritmo de busca linear em um array.</p>
-                    `
-                }
-            ];
+          content.innerHTML = tabsHtml;
+      } else if (page === 'logica') {
+          const logicaContent = [
+              {
+                  title: "Introdução à Lógica de Programação",
+                  content: `
+                      <p class="large-text">A lógica de programação é o fundamento essencial para qualquer programador. Nesta aula, vamos explorar:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que é lógica de programação</li>
+                          <li>Por que é importante aprender lógica antes de uma linguagem específica</li>
+                          <li>Conceitos básicos: algoritmos e fluxogramas</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um fluxograma para fazer um sanduíche.</p>
+                  `
+              },
+              {
+                  title: "Variáveis e Tipos de Dados",
+                  content: `
+                      <p class="large-text">Nesta aula, vamos aprender sobre os blocos básicos de construção em programação:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que são variáveis e por que as usamos</li>
+                          <li>Tipos de dados básicos: números, strings, booleanos</li>
+                          <li>Como declarar e atribuir valores a variáveis</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Declare variáveis para armazenar informações de um livro (título, autor, número de páginas, preço).</p>
+                  `
+              },
+              {
+                  title: "Operadores e Expressões",
+                  content: `
+                      <p class="large-text">Vamos explorar como manipular e comparar dados:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Operadores aritméticos (+, -, *, /, %)</li>
+                          <li>Operadores de comparação (==, !=, >, <, >=, <=)</li>
+                          <li>Operadores lógicos (AND, OR, NOT)</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie expressões para verificar se um número é par e maior que 10.</p>
+                  `
+              },
+              {
+                  title: "Estruturas de Controle: Condicionais",
+                  content: `
+                      <p class="large-text">Aprenda a tomar decisões em seus programas:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Estrutura if-else</li>
+                          <li>Estrutura switch-case</li>
+                          <li>Operador ternário</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um algoritmo que determine se um ano é bissexto.</p>
+                  `
+              },
+              {
+                  title: "Estruturas de Controle: Loops",
+                  content: `
+                      <p class="large-text">Descubra como repetir ações em seus programas:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Loop for</li>
+                          <li>Loop while</li>
+                          <li>Loop do-while</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um loop que imprima os primeiros 10 números da sequência de Fibonacci.</p>
+                  `
+              },
+              {
+                  title: "Funções",
+                  content: `
+                      <p class="large-text">Aprenda a organizar e reutilizar seu código:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que são funções e por que as usamos</li>
+                          <li>Como declarar e chamar funções</li>
+                          <li>Parâmetros e retorno de funções</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie uma função que calcule a área de um círculo dado o raio.</p>
+                  `
+              },
+              {
+                  title: "Arrays e Estruturas de Dados",
+                  content: `
+                      <p class="large-text">Explore como armazenar e manipular coleções de dados:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que são arrays</li>
+                          <li>Como criar e acessar elementos em um array</li>
+                          <li>Operações comuns em arrays (adicionar, remover, buscar)</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um array de números e uma função para encontrar o maior número no array.</p>
+                  `
+              },
+              {
+                  title: "Introdução à Complexidade de Algoritmos",
+                  content: `
+                      <p class="large-text">Compreenda a eficiência dos algoritmos:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que é complexidade de tempo e espaço</li>
+                          <li>Notação Big O</li>
+                          <li>Análise de algoritmos simples</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Analise a complexidade de tempo de um algoritmo de busca linear em um array.</p>
+                  `
+              }
+          ];
 
-            let tabsHtml = `
-                <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">${pageTitle[page]}</h2>
-                <div role="tablist" class="tabs tabs-lifted">
-                    ${logicaContent.map((aula, index) => 
-                        `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''}" onclick="changeTab(event, 'logica-aula-${(index + 1).toString().padStart(2, '0')}')">Aula ${(index + 1).toString().padStart(2, '0')}</a>`
-                    ).join('')}
-                </div>
-                <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
-                    ${logicaContent.map((aula, index) => 
-                        `<div id="logica-aula-${(index + 1).toString().padStart(2, '0')}" class="tab-pane ${index === 0 ? '' : 'hidden'}">
-                            <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2">${aula.title}</h3>
-                            <div class="text-sm sm:text-base md:text-lg space-y-2">
-                                ${aula.content}
-                            </div>
-                        </div>`
-                    ).join('')}
-                </div>
-            `;
+          let tabsHtml = `
+              <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-high-contrast">${pageTitle[page]}</h2>
+              <div role="tablist" class="tabs tabs-lifted">
+                  ${logicaContent.map((aula, index) => 
+                      `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''} text-high-contrast" onclick="changeTab(event, 'logica-aula-${(index + 1).toString().padStart(2, '0')}')">Aula ${(index + 1).toString().padStart(2, '0')}</a>`
+                  ).join('')}
+              </div>
+              <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
+                  ${logicaContent.map((aula, index) => 
+                      `<div id="logica-aula-${(index + 1).toString().padStart(2, '0')}" class="tab-pane ${index === 0 ? '' : 'hidden'}">
+                          <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2 text-high-contrast">${aula.title}</h3>
+                          <div class="text-sm sm:text-base md:text-lg space-y-2">
+                              ${aula.content}
+                          </div>
+                      </div>`
+                  ).join('')}
+              </div>
+          `;
 
-            content.innerHTML = tabsHtml;
-        } else {
-            // Existing content for other pages
-            let tabsHtml = `
-                <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">${pageTitle[page]}</h2>
-                <div role="tablist" class="tabs tabs-lifted">
-                    ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => 
-                        `<a role="tab" class="tab ${num === 1 ? 'tab-active' : ''}" onclick="changeTab(event, '${page}-aula-${num.toString().padStart(2, '0')}')">Aula ${num.toString().padStart(2, '0')}</a>`
-                    ).join('')}
-                </div>
-                <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
-                    ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => 
-                        `<div id="${page}-aula-${num.toString().padStart(2, '0')}" class="tab-pane ${num === 1 ? '' : 'hidden'}">
-                            <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2">Aula ${num.toString().padStart(2, '0')}</h3>
-                            <p class="text-sm sm:text-base md:text-lg">Conteúdo da aula ${num.toString().padStart(2, '0')} de ${pageTitle[page]}...</p>
-                        </div>`
-                    ).join('')}
-                </div>
-            `;
+          content.innerHTML = tabsHtml;
+      } else if (page === 'javascript') {
+          const javascriptContent = [
+              {
+                  title: "Introdução ao JavaScript",
+                  content: `
+                      <p class="large-text">Nesta aula, vamos explorar os fundamentos do JavaScript:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que é JavaScript e sua importância na web</li>
+                          <li>Como incluir JavaScript em uma página HTML</li>
+                          <li>Sintaxe básica e comentários</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um script que exiba "Olá, mundo!" no console do navegador.</p>
+                  `
+              },
+              {
+                  title: "Variáveis e Tipos de Dados em JavaScript",
+                  content: `
+                      <p class="large-text">Vamos aprofundar nosso conhecimento sobre variáveis e tipos de dados:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Declaração de variáveis com var, let e const</li>
+                          <li>Tipos de dados: number, string, boolean, null, undefined, object</li>
+                          <li>Conversão entre tipos de dados</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Declare variáveis de diferentes tipos e pratique a conversão entre eles.</p>
+                  `
+              },
+              {
+                  title: "Operadores e Expressões em JavaScript",
+                  content: `
+                      <p class="large-text">Aprenda a manipular dados e criar expressões complexas:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Operadores aritméticos, de atribuição e de comparação</li>
+                          <li>Operadores lógicos</li>
+                          <li>Precedência de operadores</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie expressões que combinem diferentes tipos de operadores.</p>
+                  `
+              },
+              {
+                  title: "Estruturas de Controle em JavaScript",
+                  content: `
+                      <p class="large-text">Explore como controlar o fluxo do seu programa:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Estruturas condicionais: if, else, else if, switch</li>
+                          <li>Loops: for, while, do-while</li>
+                          <li>Declarações break e continue</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um programa que use diferentes estruturas de controle para resolver um problema.</p>
+                  `
+              },
+              {
+                  title: "Funções em JavaScript",
+                  content: `
+                      <p class="large-text">Aprenda a criar e usar funções efetivamente:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Declaração e expressão de funções</li>
+                          <li>Parâmetros e argumentos</li>
+                          <li>Escopo de variáveis e closures</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie uma função que aceite múltiplos parâmetros e retorne um resultado baseado neles.</p>
+                  `
+              },
+              {
+                  title: "Arrays e Objetos em JavaScript",
+                  content: `
+                      <p class="large-text">Trabalhe com estruturas de dados complexas:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Criação e manipulação de arrays</li>
+                          <li>Métodos de array: push, pop, shift, unshift, splice, slice</li>
+                          <li>Objetos: propriedades, métodos, this</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um objeto que represente um livro e um array de livros, então pratique a manipulação desses dados.</p>
+                  `
+              },
+              {
+                  title: "Manipulação do DOM com JavaScript",
+                  content: `
+                      <p class="large-text">Aprenda a interagir com a página web:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que é o DOM (Document Object Model)</li>
+                          <li>Seleção de elementos HTML</li>
+                          <li>Modificação de conteúdo e atributos</li>
+                          <li>Manipulação de estilos e classes</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie uma página HTML simples e use JavaScript para modificar seu conteúdo dinamicamente.</p>
+                  `
+              },
+              {
+                  title: "Eventos e Manipulação de Formulários",
+                  content: `
+                      <p class="large-text">Torne suas páginas interativas:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Tipos de eventos: click, submit, keydown, etc.</li>
+                          <li>Adição e remoção de event listeners</li>
+                          <li>Validação de formulários com JavaScript</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um formulário e implemente validação client-side usando JavaScript.</p>
+                  `
+              }
+          ];
 
-            content.innerHTML = tabsHtml;
-        }
-    }
+          let tabsHtml = `
+              <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-high-contrast">${pageTitle[page]}</h2>
+              <div role="tablist" class="tabs tabs-lifted">
+                  ${javascriptContent.map((aula, index) => 
+                      `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''} text-high-contrast" onclick="changeTab(event, 'javascript-aula-${(index + 1).toString().padStart(2, '0')}')">Aula ${(index + 1).toString().padStart(2, '0')}</a>`
+                  ).join('')}
+              </div>
+              <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
+                  ${javascriptContent.map((aula, index) => 
+                      `<div id="javascript-aula-${(index + 1).toString().padStart(2, '0')}" class="tab-pane ${index === 0 ? '' : 'hidden'}">
+                          <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2 text-high-contrast">${aula.title}</h3>
+                          <div class="text-sm sm:text-base md:text-lg space-y-2">
+                              ${aula.content}
+                          </div>
+                      </div>`
+                  ).join('')}
+              </div>
+          `;
 
-    function changeTab(event, tabId) {
-        // Remove active class from all tabs
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.classList.remove('tab-active');
-        });
-        
-        // Add active class to clicked tab
-        event.target.classList.add('tab-active');
-        
-        // Hide all tab content
-        document.querySelectorAll('.tab-pane').forEach(content => {
-            content.classList.add('hidden');
-        });
-        
-        // Show selected tab content
-        document.getElementById(tabId).classList.remove('hidden');
-    }
+          content.innerHTML = tabsHtml;
+      } else if (page === 'nodejs') {
+          const nodejsContent = [
+              {
+                  title: "Introdução ao Node.js",
+                  content: `
+                      <p class="large-text">Nesta aula, vamos explorar os fundamentos do Node.js:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O que é Node.js e por que é importante</li>
+                          <li>Instalação e configuração do ambiente Node.js</li>
+                          <li>Executando scripts Node.js</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie e execute um script Node.js simples que imprima "Olá, Node.js!" no console.</p>
+                  `
+              },
+              {
+                  title: "Módulos e npm",
+                  content: `
+                      <p class="large-text">Aprenda sobre o sistema de módulos do Node.js e o npm:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Criação e importação de módulos</li>
+                          <li>O que é npm e como usá-lo</li>
+                          <li>Instalação de pacotes e gerenciamento de dependências</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um módulo personalizado e use-o em outro arquivo. Depois, instale e use um pacote npm em seu projeto.</p>
+                  `
+              },
+              {
+                  title: "Trabalhando com o Sistema de Arquivos",
+                  content: `
+                      <p class="large-text">Explore como o Node.js interage com o sistema de arquivos:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Leitura e escrita de arquivos</li>
+                          <li>Manipulação de diretórios</li>
+                          <li>Streams e buffers</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um script que leia um arquivo de texto, modifique seu conteúdo e salve as alterações em um novo arquivo.</p>
+                  `
+              },
+              {
+                  title: "Criando um Servidor Web com Node.js",
+                  content: `
+                      <p class="large-text">Aprenda a criar um servidor web básico:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>O módulo http do Node.js</li>
+                          <li>Criação de rotas</li>
+                          <li>Servindo HTML, JSON e arquivos estáticos</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie um servidor web simples que sirva diferentes tipos de conteúdo baseado na URL requisitada.</p>
+                  `
+              },
+              {
+                  title: "Express.js: Introdução",
+                  content: `
+                      <p class="large-text">Conheça o framework Express.js para Node.js:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Instalação e configuração do Express</li>
+                          <li>Roteamento com Express</li>
+                          <li>Middleware e sua importância</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie uma aplicação Express básica com diferentes rotas e um middleware personalizado.</p>
+                  `
+              },
+              {
+                  title: "Banco de Dados e Node.js",
+                  content: `
+                      <p class="large-text">Integre seu aplicativo Node.js com um banco de dados:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Conexão com bancos de dados (ex: MongoDB, MySQL)</li>
+                          <li>Operações CRUD básicas</li>
+                          <li>ORMs e ODMs (ex: Mongoose para MongoDB)</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Crie uma API RESTful simples que realize operações CRUD em um banco de dados.</p>
+                  `
+              },
+              {
+                  title: "Autenticação e Segurança",
+                  content: `
+                      <p class="large-text">Implemente autenticação e melhore a segurança de sua aplicação:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Implementação de autenticação com JWT</li>
+                          <li>Proteção contra ataques comuns (ex: XSS, CSRF)</li>
+                          <li>Boas práticas de segurança em Node.js</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Adicione autenticação JWT a sua API e implemente medidas básicas de segurança.</p>
+                  `
+              },
+              {
+                  title: "Testes e Depuração em Node.js",
+                  content: `
+                      <p class="large-text">Aprenda a testar e depurar aplicações Node.js:</p>
+                      <ul class="list-disc list-inside mt-2 large-text">
+                          <li>Escrevendo testes unitários com frameworks como Jest</li>
+                          <li>Testes de integração</li>
+                          <li>Depuração com o Node.js debugger e ferramentas de desenvolvimento</li>
+                      </ul>
+                      <p class="mt-4 large-text">Exercício: Escreva testes unitários para algumas funções de sua aplicação e pratique a depuração de erros comuns.</p>
+                  `
+              }
+          ];
+
+          let tabsHtml = `
+              <h2 class="text-lg sm:text-xl md:text-2xl xl:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-high-contrast">${pageTitle[page]}</h2>
+              <div role="tablist" class="tabs tabs-lifted">
+                  ${nodejsContent.map((aula, index) => 
+                      `<a role="tab" class="tab ${index === 0 ? 'tab-active' : ''} text-high-contrast" onclick="changeTab(event, 'nodejs-aula-${(index + 1).toString().padStart(2, '0')}')">Aula ${(index + 1).toString().padStart(2, '0')}</a>`
+                  ).join('')}
+              </div>
+              <div id="tab-content" class="p-4 sm:p-6 bg-base-100 border-base-300 rounded-box mt-1">
+                  ${nodejsContent.map((aula, index) => 
+                      `<div id="nodejs-aula-${(index + 1).toString().padStart(2, '0')}" class="tab-pane ${index === 0 ? '' : 'hidden'}">
+                          <h3 class="text-base sm:text-lg md:text-xl xl:text-2xl font-semibold mb-2 text-high-contrast">${aula.title}</h3>
+                          <div class="text-sm sm:text-base md:text-lg space-y-2">
+                              ${aula.content}
+                          </div>
+                      </div>`
+                  ).join('')}
+              </div>
+          `;
+
+          content.innerHTML = tabsHtml;
+      }
+  }
+
+  function changeTab(event, tabId) {
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+          tab.classList.remove('tab-active');
+      });
+      
+      // Add active class to clicked tab
+      event.target.classList.add('tab-active');
+      
+      // Hide all tab content
+      document.querySelectorAll('.tab-pane').forEach(content => {
+          content.classList.add('hidden');
+      });
+      
+      // Show selected tab content
+      document.getElementById(tabId).classList.remove('hidden');
+  }
 </script>
 </body>
 </html>
